@@ -1,0 +1,48 @@
+services:
+  vault-mcp:
+    image: ghcr.io/es617/obsidian-sync-mcp:latest
+    container_name: vault-mcp
+    restart: unless-stopped
+    environment:
+      VAULT_PATH: /vault
+      VAULT_NAME: Vault
+      DATA_DIR: /data
+      MCP_AUTH_TOKEN: ${MCP_AUTH_TOKEN}
+    volumes:
+      - ./vault:/vault
+      - ./mcp-data:/data
+    # keine ports: nur intern erreichbar
+
+  vault-ai-proxy:
+    image: caddy:2
+    container_name: vault-ai-proxy
+    restart: unless-stopped
+    environment:
+      VAULT_AI_KEY: ${VAULT_AI_KEY}
+      MCP_AUTH_TOKEN: ${MCP_AUTH_TOKEN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    # keine ports: nur der Tunnel spricht mit ihm
+
+  vault-cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: vault-cloudflared
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN}
+
+  vault-syncthing:
+    image: syncthing/syncthing:latest
+    container_name: vault-syncthing
+    restart: unless-stopped
+    hostname: vault-server
+    environment:
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+    volumes:
+      - ./syncthing:/var/syncthing
+      - ./vault:/var/syncthing/Vault
+    ports:
+      - "${SYNC_BIND_IP}:22000:22000/tcp"   # nur LAN- oder VPN-IP des Servers
+      - "127.0.0.1:8384:8384"              # Weboberfläche nur lokal (per SSH-Tunnel)

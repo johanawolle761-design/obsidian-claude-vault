@@ -1,0 +1,15 @@
+:8080 {
+	# Zweites Schloss: nur Anfragen mit richtigem x-api-key
+	@erlaubt header X-Api-Key {$VAULT_AI_KEY}
+
+	handle @erlaubt {
+		reverse_proxy vault-mcp:8787 {
+			# fremden Authorization-Header immer durch den internen Token ersetzen
+			header_up Authorization "Bearer {$MCP_AUTH_TOKEN}"
+		}
+	}
+
+	handle {
+		respond 401
+	}
+}

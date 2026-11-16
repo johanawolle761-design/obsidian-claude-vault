@@ -1,0 +1,6 @@
+.env
+server/.env
+server/vault/
+server/mcp-data/
+server/syncthing/
+app.json
