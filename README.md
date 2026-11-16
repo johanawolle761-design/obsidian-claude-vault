@@ -13,6 +13,10 @@ Claude (Cloud von Anthropic)
 Vault-Ordner auf dem Server  <-- Syncthing (nur Heimnetz/VPN) -->  Obsidian auf PC/Mac
 ```
 
+## Sofort loslegen
+
+Den Prompt aus **[`CLAUDE-PROMPT.md`](CLAUDE-PROMPT.md)** in einen neuen Claude-Chat kopieren. Claude liest dann die Anleitung aus diesem Repo und führt dich Schritt für Schritt durch.
+
 ## Was du brauchst
 
 - Claude-Konto (Pro empfohlen; Free erlaubt nur einen eigenen Connector)
@@ -30,7 +34,7 @@ Vault-Ordner auf dem Server  <-- Syncthing (nur Heimnetz/VPN) -->  Obsidian auf 
 | [`server/`](server/) | `docker-compose.yml`, `Caddyfile`, `.env.example` |
 | [`scripts/test-zugang.sh`](scripts/test-zugang.sh) | Prüft, ob beide Schlösser greifen |
 | [`vault-vorlage/`](vault-vorlage/) | Startgerüst für den Vault (`Start.md`, Regeln für KIs, Ordner) |
-| [`prompts/einrichtung.md`](prompts/einrichtung.md) | Prompt, mit dem Claude dich durch die Einrichtung führt |
+| [`CLAUDE-PROMPT.md`](CLAUDE-PROMPT.md) | Prompt zum Kopieren: Claude führt dich durch die Einrichtung |
 | [`prompts/claude-praeferenzen.md`](prompts/claude-praeferenzen.md) | Text für die Claude-Einstellungen, damit Claude den Vault nutzt |
 
 ## Schnellstart
@@ -43,7 +47,7 @@ Vault-Ordner auf dem Server  <-- Syncthing (nur Heimnetz/VPN) -->  Obsidian auf 
 6. Inhalt von `vault-vorlage/` in den Vault kopieren und anpassen.
 7. Neustart-Tests machen. Erst danach ist es fertig.
 
-Wer lieber geführt werden will: den Prompt aus [`prompts/einrichtung.md`](prompts/einrichtung.md) in einen neuen Claude-Chat kopieren.
+Wer lieber geführt werden will: den Prompt aus [`CLAUDE-PROMPT.md`](CLAUDE-PROMPT.md) in einen neuen Claude-Chat kopieren.
 
 ## Sicherheitsregeln
 
